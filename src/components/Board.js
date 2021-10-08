@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SmallButtons from '../components/smallButtons'
 
 
 class Box extends Component {
@@ -48,9 +49,16 @@ class Board extends Component {
         }
     
         return (
-          <div className="board">
-            {rowsArray}
+          <div className="board-frame">
+            <div className="board">
+              {rowsArray}
+            </div>
+            <SmallButtons
+              plusButton = {this.props.plusButton}
+              minusButton = {this.props.minusButton}
+            />
           </div>
+          
         );
       }
 }

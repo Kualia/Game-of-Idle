@@ -7,6 +7,7 @@ import gridIcon from '../visuals/icons/icons-grid.svg'
 
 
 class BoardController extends Component {
+    
     render() {
         return (
             <div className="controllerButtons" >
@@ -23,5 +24,7 @@ class BoardController extends Component {
         )
     }
 }
+
+
 
 export default BoardController;

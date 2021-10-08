@@ -28,6 +28,17 @@ class Game extends Component {
             fullBoard: createBoard(this.rows, this.cols),
             population: 0,
         }
+
+        this.upgrades = {
+            grid: {
+                name: "Grid Upgrade",
+                lvl: 0,
+                price: 0,
+            },
+
+        }
+
+        this.upgrades.grid.price = gridPrice(this.upgrades.grid.lvl);
     }
 
 
@@ -39,6 +50,7 @@ class Game extends Component {
         this.setState({
             fullBoard: boardCopy,
         }, () => {
+            console.log(this.upgrades.grid);
             this.countCells();
         })
         
@@ -101,6 +113,7 @@ class Game extends Component {
         })
     }
     minusButton = () => {
+        if (this.state.boxSize < 15) return;
         this.setState({
             boxSize: this.state.boxSize - 3
         })
@@ -166,6 +179,13 @@ class Game extends Component {
 
     componentDidMount() {
         this.playButton();
+        document.addEventListener('keyup', (event) => {
+            console.log(event.code);
+            if (event.code === 'Space'){ 
+                this.tick();
+                this.pauseButton();
+            }
+          }, false);        
     }
 
     render() {
@@ -180,6 +200,8 @@ class Game extends Component {
                         cols = {this.cols}
                         selectBox = {this.selectBox}
                         boxSize = {this.state.boxSize}
+                        minusButton = {this.minusButton}
+                        plusButton = {this.plusButton}
                     />
                     <BoardController
                         playButton = {this.playButton}
@@ -187,18 +209,15 @@ class Game extends Component {
                         nextTick = {this.tickButton}
                         buyutbuton = {this.buyutbuton}
                     />
-                    <SmallButtons
-                        minusButton = {this.minusButton}
-                        plusButton = {this.plusButton} 
-                    />
                 </div>
                 <div className="currency1-card">
                     <h4>Total Cells</h4>
                     <h4>{this.state.cells} <span className="smallText">(+{this.lastadded})</span></h4>
                     <span>{this.state.fillLimit} of <span className={a}>{this.state.population} </span>filled</span>
                     <h4>Generation {this.state.generation}</h4>
-
+                    <h4>Board {this.rows*this.cols}</h4>
                 </div>
+                
             </div>
         )
     }
@@ -211,6 +230,10 @@ function arrayClone (arr){
 
 const createBoard = (rows, cols) => {
     return Array(rows).fill().map(() => Array(cols).fill(false));
+}
+
+function gridPrice (lvl){
+    return 3;
 }
 
 export default Game;

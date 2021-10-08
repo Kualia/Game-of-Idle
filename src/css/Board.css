@@ -29,12 +29,23 @@
     justify-content: center;
   }
   
-
-
-
   .board {
 
     line-height: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 995px;
+    height: 579px;
+  }
+  .board {
+    cursor: grab;
+    overflow: auto;
+  }
+  .board-frame {
     margin: auto;
     margin-top: 2em;
     display: flex;
@@ -42,17 +53,12 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    overflow: hidden;
     border: 0.2em solid var(--color2);
     border-radius: 1em;
     width: 995px;
-    height: 579px;
+    height: 580px;
   }
   
-  .board {
-    cursor: grab;
-    overflow: auto;
-  }
   .board::-webkit-scrollbar {
     display: none;
   }
