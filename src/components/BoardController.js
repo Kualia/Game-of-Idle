@@ -20,6 +20,14 @@ class BoardController extends Component {
                 <div className="bigButton" onClick={this.props.buyutbuton}>
                     <img draggable="false" src={gridIcon} alt="grid"/>
                 </div>
+                <div className="symetryBoxes">
+                    <div className="symetryChecboxParent">
+                    <input className="symetryCheckbox" type="checkbox"></input>X
+                    </div>
+                    <div className="symetryChecboxParent">
+                    <input className="symetryCheckbox" type="checkbox"></input>Y
+                    </div>
+                </div>
             </div>
         )
     }

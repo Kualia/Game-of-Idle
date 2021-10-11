@@ -179,6 +179,9 @@ class Game extends Component {
 
     componentDidMount() {
         this.playButton();
+        window.addEventListener('keydown', (e) => {
+            e.preventDefault();
+        });
         document.addEventListener('keyup', (event) => {
             console.log(event.code);
             if (event.code === 'Space'){ 
