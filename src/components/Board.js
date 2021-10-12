@@ -3,8 +3,8 @@ import SmallButtons from '../components/smallButtons'
 
 
 class Box extends Component {
-    selectBox = () => {
-        this.props.selectBox(this.props.row, this.props.col)
+    selectBox = (r=true) => {
+        this.props.selectBox(this.props.row, this.props.col, r);
     }
     
     render(){
@@ -14,12 +14,18 @@ class Box extends Component {
                 className={this.props.boxClass}
                 //this.props.id??
                 onClick={this.selectBox}
+                onMouseDown={(e) => { 
+                  console.log(e.buttons);
+                  if(e.buttons === 2)
+                    this.selectBox(false);
+                }}
             />
         );
     }
 }
 
 class Board extends Component {
+
 
     render(){
         var rowsArray = []
@@ -49,7 +55,9 @@ class Board extends Component {
         }
     
         return (
-          <div className="board-frame">
+          <div className="board-frame" onContextMenu={(e) => {
+            e.preventDefault();
+            }}>
             <div className="board">
               {rowsArray}
             </div>

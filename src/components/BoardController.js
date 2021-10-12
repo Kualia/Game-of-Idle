@@ -7,7 +7,30 @@ import gridIcon from '../visuals/icons/icons-grid.svg'
 
 
 class BoardController extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state = {
+        xSymetry: false,
+        ySymetry: false
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+
+    handleInputChange(e){
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        }, () => {
+            this.props.setSymetry(this.state.xSymetry, this.state.ySymetry);
+        });
+        
+
+    }
+  
     render() {
         return (
             <div className="controllerButtons" >
@@ -22,10 +45,11 @@ class BoardController extends Component {
                 </div>
                 <div className="symetryBoxes">
                     <div className="symetryChecboxParent">
-                    <input className="symetryCheckbox" type="checkbox"></input>X
+                    <input className="symetryCheckbox" name="xSymetry" type="checkbox" checked={this.state.xSymetry} onChange={this.handleInputChange}
+                    ></input>X
                     </div>
                     <div className="symetryChecboxParent">
-                    <input className="symetryCheckbox" type="checkbox"></input>Y
+                    <input className="symetryCheckbox" name="ySymetry" type="checkbox" checked={this.state.ySymetry} onChange={this.handleInputChange}></input>Y
                     </div>
                 </div>
             </div>

@@ -20,7 +20,11 @@ class Game extends Component {
         this.cols = data.cols;
         this.autoPlay = false;
         this.lastadded = 0;
+        this.Xsymetry = false;
+        this.Ysymetry = false;
         this.state = {
+            Xsymetry: false,
+            Ysymetry: false,
             generation: 0,
             boxSize: 30,
             cells: 0,
@@ -42,17 +46,68 @@ class Game extends Component {
     }
 
 
-    selectBox = (row, col) => {
+    selectBox = (row, col, rv=true) => {
+        let population = this.countCells();
+        console.log("population: ", population);
+        if ((population >= this.state.fillLimit) && !this.state.fullBoard[row][col]) return;
+        console.log("c");
         this.pauseButton();
-        if ((this.state.population >= this.state.fillLimit) && !this.state.fullBoard[row][col]) return;
         let boardCopy = arrayClone(this.state.fullBoard);
-        boardCopy[row][col] = !boardCopy[row][col];
+        let selected = boardCopy[row][col];
+        boardCopy[row][col] = !selected;
+
+        if (rv) {
+            let s = 0;
+            let c, r;
+            if (this.state.Ysymetry) {
+                c = this.cols - (col+1);
+                if(c !== col){
+                    let b = boardCopy[row][c];
+                    if (!b) s++;
+                    if(b || population + s < this.state.fillLimit)
+                        boardCopy[row][c] = !b;
+                }   
+            }
+            if (this.state.Xsymetry) {
+                r = this.rows - (row+1);
+                if (r !== row) {
+                    let b = boardCopy[r][col];
+                    if (!b) s++;
+                    if (b || population + s < this.state.fillLimit)
+                        boardCopy[r][col] = !b;
+                }
+            }
+            if (this.state.Xsymetry && this.state.Ysymetry) {
+                if(r !== row && c !== col){
+                    let b = boardCopy[r][c];
+                    if (!b) s++;
+                    if(b || population + s < this.state.fillLimit)
+                        boardCopy[r][c] = !b;
+                }    
+            }
+        }
+
+
         this.setState({
             fullBoard: boardCopy,
         }, () => {
-            console.log(this.upgrades.grid);
+            //console.log(this.upgrades.grid);
+            //tıklamak yerine boardcopy'i değiştir hadi hadi yaparsın
             this.countCells();
+            console.log("d");
+            if (false) {   
+                if (this.state.Ysymetry && (row !== this.rows-row-1)){
+                    console.log("a");
+                    this.selectBox(this.rows-row-1, col, false);
+                }
+
+                if (this.state.Xsymetry && (col !== this.cols-col-1)){
+                    console.log("b");
+                    this.selectBox(row, this.cols-col-1, false);
+                }   
+            }
         })
+        
         
     }
 
@@ -96,6 +151,8 @@ class Game extends Component {
 
         this.setState({
             fullBoard: createBoard(this.rows, this.cols),
+        }, () =>{
+            this.countCells();
         })
     }
 
@@ -118,6 +175,14 @@ class Game extends Component {
             boxSize: this.state.boxSize - 3
         })
     }
+    setSymetry = (a, b) => {
+        this.Xsymetry = a;
+        this.Ysymetry = b;
+        this.setState({
+            Xsymetry: a,
+            Ysymetry: b,
+        })
+    }
 
     countCells = () => {
         let total = 0;
@@ -129,6 +194,7 @@ class Game extends Component {
         this.setState({
             population: total,
         });
+        return total;
     }
 
     tick = () => {
@@ -211,6 +277,7 @@ class Game extends Component {
                         pauseButton = {this.pauseButton}
                         nextTick = {this.tickButton}
                         buyutbuton = {this.buyutbuton}
+                        setSymetry = {this.setSymetry}
                     />
                 </div>
                 <div className="currency1-card">
@@ -240,3 +307,13 @@ function gridPrice (lvl){
 }
 
 export default Game;
+
+
+/*  TODO:
+
+
+boxların idlerini merkeze olan uzaklığına göre yap grid büyütülünce bir kaymasını engelle
+upgradeler[0]--> harita yuvarlak olsun (sağa taşan soldan çıkarvs, hayalet çerçeve ekle)
+first -- x y checkboxlarının stilini düzenle
+
+*/
