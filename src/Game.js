@@ -42,7 +42,7 @@ class Game extends Component {
 
         }
 
-        this.upgrades.grid.price = gridPrice(this.upgrades.grid.lvl);
+        //this.upgrades.grid.price = gridPrice(this.upgrades.grid.lvl);
     }
 
 
