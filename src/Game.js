@@ -6,8 +6,8 @@ import './css/index.css';
 import './css/Board.css';
 
 var data = {
-    rows: 1,
-    cols: 1,
+    rows: 3,
+    cols: 3,
     initialFillLimit: 3000,
     speed: 500,
 }
@@ -286,18 +286,12 @@ const createBoard = (rows, cols) => {
     return Array(rows).fill().map(() => Array(cols).fill(false));
 }
 
-function gridPrice (lvl){
-    return 3;
-}
-
 export default Game;
 
 
 /*  TODO:
-
-
 boxların idlerini merkeze olan uzaklığına göre yap grid büyütülünce bir kaymasını engelle
 upgradeler[0]--> harita yuvarlak olsun (sağa taşan soldan çıkarvs, hayalet çerçeve ekle)
 first -- x y checkboxlarının stilini düzenle
-
+fix tick performance
 */
