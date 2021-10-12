@@ -288,10 +288,3 @@ const createBoard = (rows, cols) => {
 
 export default Game;
 
-
-/*  TODO:
-boxların idlerini merkeze olan uzaklığına göre yap grid büyütülünce bir kaymasını engelle
-upgradeler[0]--> harita yuvarlak olsun (sağa taşan soldan çıkarvs, hayalet çerçeve ekle)
-first -- x y checkboxlarının stilini düzenle
-fix tick performance
-*/
