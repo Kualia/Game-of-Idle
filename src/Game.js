@@ -50,7 +50,6 @@ class Game extends Component {
         let population = this.countCells();
         console.log("population: ", population);
         if ((population >= this.state.fillLimit) && !this.state.fullBoard[row][col]) return;
-        console.log("c");
         this.pauseButton();
         let boardCopy = arrayClone(this.state.fullBoard);
         let selected = boardCopy[row][col];
@@ -91,21 +90,7 @@ class Game extends Component {
         this.setState({
             fullBoard: boardCopy,
         }, () => {
-            //console.log(this.upgrades.grid);
-            //tıklamak yerine boardcopy'i değiştir hadi hadi yaparsın
             this.countCells();
-            console.log("d");
-            if (false) {   
-                if (this.state.Ysymetry && (row !== this.rows-row-1)){
-                    console.log("a");
-                    this.selectBox(this.rows-row-1, col, false);
-                }
-
-                if (this.state.Xsymetry && (col !== this.cols-col-1)){
-                    console.log("b");
-                    this.selectBox(row, this.cols-col-1, false);
-                }   
-            }
         })
         
         
@@ -239,7 +224,6 @@ class Game extends Component {
 
     mainLoop = () => {
         this.tick();
-        
     }
     
 
