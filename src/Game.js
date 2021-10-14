@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Board from './components/Board';
 import BoardController from './components/BoardController';
-import SmallButtons from './components/smallButtons';
 import './css/index.css';
 import './css/Board.css';
 
@@ -151,13 +150,17 @@ class Game extends Component {
 
     plusButton = () => {
         this.setState({
-            boxSize: this.state.boxSize + 3
+            boxSize: Number((this.state.boxSize * 1.1).toFixed(3))
+        }, () => {
+            console.log(this.state.boxSize);
         })
     }
     minusButton = () => {
         if (this.state.boxSize < 15) return;
         this.setState({
-            boxSize: this.state.boxSize - 3
+            boxSize: Number((this.state.boxSize / 1.1).toFixed(3))
+        }, () => {
+            console.log(this.state.boxSize);
         })
     }
     setSymetry = (a, b) => {
@@ -252,7 +255,7 @@ class Game extends Component {
                         rows = {this.rows}
                         cols = {this.cols}
                         selectBox = {this.selectBox}
-                        boxSize = {this.state.boxSize}
+                        boxSize = {Math.floor(this.state.boxSize)}
                         minusButton = {this.minusButton}
                         plusButton = {this.plusButton}
                     />

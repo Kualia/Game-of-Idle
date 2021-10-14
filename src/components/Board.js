@@ -12,7 +12,6 @@ class Box extends Component {
             <div
                 style={{fontSize: this.props.boxSize + 'px'}}
                 className={this.props.boxClass}
-                //this.props.id??
                 onClick={this.selectBox}
                 onMouseDown={(e) => { 
                   console.log(e.buttons);

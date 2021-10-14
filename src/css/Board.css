@@ -2,7 +2,7 @@
     background-color: #504658;
   }
     
-  .box {
+  .box, .checkbox-container label::before{
     align-self: center;
     transition-duration: 0.2s;
     margin: 0.15em;
@@ -12,10 +12,7 @@
     height: 1em;
   }
 
-  .box:hover {
-    border-radius: 0%;
-  }
-  .on {
+  .on{
     background-color: #FFB5B5;
   }
   
@@ -57,7 +54,9 @@
     border: 0.2em solid var(--color2);
     border-radius: 1em;
     width: 995px;
+    max-width: 80%;
     height: 580px;
+    max-height: 80%;
   }
   
   .board::-webkit-scrollbar {

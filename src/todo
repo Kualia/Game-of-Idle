@@ -1,6 +1,9 @@
 TODO:
 boxların idlerini merkeze olan uzaklığına göre yap grid büyütülünce bir kaymasını engelle
 grid büyütüldüğünde silinmesin
+grid drag to scroll
+spamming play button pauses
 upgradeler[0]--> harita yuvarlak olsun (sağa taşan soldan çıkarvs, hayalet çerçeve ekle)
 first -- x y checkboxlarının stilini düzenle
 fix tick performance
+göreli olarak render etmeme
