@@ -21,6 +21,7 @@ class Game extends Component {
         this.lastadded = 0;
         this.Xsymetry = false;
         this.Ysymetry = false;
+        this.c = 0;
         this.state = {
             Xsymetry: false,
             Ysymetry: false,
@@ -99,6 +100,7 @@ class Game extends Component {
         let boardCopy = arrayClone(this.state.fullBoard);
         for (let i=0; i<this.rows; i++){
           for (let j=0; j<this.cols; j++){
+              boardCopy[i][j] = false;
             if(Math.floor(Math.random() * 4) === 1){
               boardCopy[i][j] = true;
             }
@@ -224,9 +226,34 @@ class Game extends Component {
         
 
     }
+    
+    swipeBoard = (pole='N') => {
+        let boardCopy = arrayClone(this.state.fullBoard);
+        let r;
+        switch (pole) {
+            case 'N':
+                r = arrayRotate(boardCopy);
+                break;
+            case 'S':
+                r = arrayRotate(boardCopy, true)
+                break;
+            case 'W':
+                r = Array(this.rows).fill().map((val, i) => arrayRotate(boardCopy[i]));
+                break;
+            case 'E':
+                r = Array(this.rows).fill().map((val, i) => arrayRotate(boardCopy[i], true));
+                break;
+            default:
+                console.log("Unknown swipe");
+                break;
+        }
+        this.setState({
+            fullBoard: r
+        });     
+    }
 
     mainLoop = () => {
-        this.tick();
+        this.tick();//??
     }
     
 
@@ -236,10 +263,23 @@ class Game extends Component {
             e.preventDefault();
         });
         document.addEventListener('keyup', (event) => {
-            console.log(event.code);
-            if (event.code === 'Space'){ 
+            //console.log(event.code);
+            let ec = event.code;
+            if (ec === 'Space'){ 
                 this.tick();
                 this.pauseButton();
+            }
+            else if(ec === 'KeyW'){
+                this.swipeBoard('N');   
+            }
+            else if(ec === 'KeyS'){
+                this.swipeBoard('S');
+            }
+            else if(ec === 'KeyA'){
+                this.swipeBoard('W');
+            }
+            else if(ec === 'KeyD'){
+                this.swipeBoard('E');
             }
           }, false);        
     }
@@ -285,9 +325,15 @@ function arrayClone (arr){
     return a;
 }
 
-const createBoard = (rows, cols) => {
+function createBoard (rows, cols) {
     return Array(rows).fill().map(() => Array(cols).fill(false));
 }
+function arrayRotate(arr, reverse) {
+    if (reverse) arr.unshift(arr.pop());
+    else arr.push(arr.shift());
+    return arr;
+  }
+  
 
 export default Game;
 
