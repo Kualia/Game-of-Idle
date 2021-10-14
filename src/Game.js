@@ -21,7 +21,6 @@ class Game extends Component {
         this.lastadded = 0;
         this.Xsymetry = false;
         this.Ysymetry = false;
-        this.c = 0;
         this.state = {
             Xsymetry: false,
             Ysymetry: false,
@@ -134,12 +133,12 @@ class Game extends Component {
         this.pauseButton();
         this.rows+=2;
         this.cols+=2;
-
+        let b = arrayClone(this.state.fullBoard);
         this.setState({
             fullBoard: createBoard(this.rows, this.cols),
         }, () =>{
-            this.countCells();
-        })
+            this.drawShape(1,1,b);
+        });
     }
 
     setSpeed = (spd) => {
@@ -227,6 +226,27 @@ class Game extends Component {
 
     }
     
+    drawShape = (x,y,shape) => {
+        let boardCopy = arrayClone(this.state.fullBoard);
+
+        for(let i=0; i<shape.length; i++){
+            for(let j=0; j<shape.length; j++){
+                try {
+                    boardCopy[i+x][j+y] = shape[i][j];
+                }catch(err){
+                    console.log(err);
+                }
+            }
+        }
+
+        this.setState({
+            fullBoard: boardCopy,
+        }, () => {
+            this.countCells();
+        })
+    }
+
+
     swipeBoard = (pole='N') => {
         let boardCopy = arrayClone(this.state.fullBoard);
         let r;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import SmallButtons from '../components/smallButtons'
 
-
 class Box extends Component {
     selectBox = (r=true) => {
         this.props.selectBox(this.props.row, this.props.col, r);
@@ -12,7 +11,9 @@ class Box extends Component {
             <div
                 style={{fontSize: this.props.boxSize + 'px'}}
                 className={this.props.boxClass}
-                onClick={this.selectBox}
+                onClick={() => {
+                  this.selectBox();
+                }}
                 onMouseDown={(e) => { 
                   console.log(e.buttons);
                   if(e.buttons === 2)
@@ -34,9 +35,9 @@ class Board extends Component {
           var row = []
 
           for (var  j = 0; j < this.props.cols; j++){
-            let k = i+"_"+j;
-    
-            boxClass = this.props.fullBoard[i][j] ? "box on" : "box off";
+            let k = "k" + (i - (this.props.rows - 1) / 2 ) + "_" + (j - (this.props.cols - 1) / 2 ) + "_";
+            boxClass = "box ";
+            boxClass += this.props.fullBoard[i][j] ? "on" : "off";
             row.push(
               <Box
                 boxClass={boxClass}
