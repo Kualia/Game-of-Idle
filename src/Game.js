@@ -320,19 +320,19 @@ class Game extends Component {
     }
 }
 
-function arrayClone (arr){
-    let a = JSON.parse(JSON.stringify(arr));
-    return a;
+function arrayClone(arr){
+    return JSON.parse(JSON.stringify(arr));
 }
 
-function createBoard (rows, cols) {
+function createBoard(rows, cols) {
     return Array(rows).fill().map(() => Array(cols).fill(false));
 }
+
 function arrayRotate(arr, reverse) {
     if (reverse) arr.unshift(arr.pop());
     else arr.push(arr.shift());
     return arr;
-  }
+}
   
 
 export default Game;
